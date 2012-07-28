@@ -74,8 +74,8 @@ On_ICyan='\e[0;106m'    # Cyan
 On_IWhite='\e[0;107m'   # White
 
 
-title="\[\e]0;\u@\h:\W\a\]"
-prompt="${IYellow}\u${IRed}@${IBlue}\h${IRed}:${IWhite}\W "
+title="\[\e]0;\u@\h:\w\a\]"
+prompt="${IYellow}\u${IRed}@${IBlue}\h${IRed}:${IWhite}\w "
 
 user_symbol="${IRed}\$ ${Color_Off}"
 root_symbol="${IRed}# ${Color_Off}"
