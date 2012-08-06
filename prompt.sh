@@ -75,10 +75,10 @@ On_IWhite='\e[0;107m'   # White
 
 
 title="\[\e]0;\u@\h:\w\a\]"
-prompt="${IYellow}\u${IRed}@${IBlue}\h${IRed}:${IWhite}\w "
+prompt="${IYellow}\u${IRed}@${IBlue}\h${IRed}:${IWhite}\w"
 
-user_symbol="${IRed}\$ ${Color_Off}"
-root_symbol="${IRed}# ${Color_Off}"
+user_symbol="\n${IGreen}\$ ${Color_Off}"
+root_symbol="\n${IGreen}# ${Color_Off}"
 
 
 if [[ $(id -u) == 0 ]]; then
