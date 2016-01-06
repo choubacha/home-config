@@ -140,7 +140,7 @@ set sidescrolloff=15
 set sidescroll=1
 
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%80v.\+/
+match OverLength /\%81v.\+/
 
 
 " Libraries
