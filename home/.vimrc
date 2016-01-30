@@ -5,7 +5,7 @@ filetype off                  " required
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+" call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
@@ -13,7 +13,11 @@ Plugin 'VundleVim/Vundle.vim'
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
-Bundle 'ruby-vim/ruby-vim'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'pangloss/vim-javascript'
+Plugin 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
+Plugin 'rust-lang/rust.vim'
+Plugin 'kien/ctrlp.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -32,7 +36,6 @@ filetype plugin indent on    " required
 
 " Use Vim settings, rather then Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
-set nocompatible
 
 " This will show the little row,col at the bottom
 set ruler
@@ -62,20 +65,12 @@ set hidden
 
 "turn on syntax highlighting
 syntax on
-au BufRead,BufNewFile *.handlebars,*.hbs set ft=html syntax=handlebars
 
 " Change leader to a comma because the backslash is too far away
 " That means all \x commands turn into ,x
 " The mapleader has to be set before vundle starts loading all 
 " the plugins.
 let mapleader=","
-
-" =============== Vundle Initialization ===============
-" This loads all the plugins specified in ~/.vim/vundle.vim
-" Use Vundle plugin to manage all other plugins
-if filereadable(expand("~/.vim/vundles.vim"))
-  source ~/.vim/vundles.vim
-endif
 
 " ================ Turn Off Swap Files ==============
 
@@ -132,23 +127,31 @@ set wildignore+=tmp/**
 set wildignore+=*.png,*.jpg,*.gif
 
 "
-
 " ================ Scrolling ========================
 
 set scrolloff=8         "Start scrolling when we're 8 lines away from margins
 set sidescrolloff=15
 set sidescroll=1
 
+"
+"
+" ================ Highlighting ====================
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
+set hlsearch
 
+"
+" ================= Clear search with esc ==============
+nnoremap <silent> <esc><esc> :nohl<return><esc>
+nnoremap <c-b> :CtrlPBuffer<return>
 
-" Libraries
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-set runtimepath^=~/.vim/bundle/ag
+"
+" ================== CTRL P ==================
+let g:ctrlp_clear_cache_on_exit = 0
 
+"
+" ================== commands ===============
 command RubyHashFix %s/:\([a-zA-Z0-9_]\+\)\s*=>\s*/\1: /gc
 command RspecShould %s/\([a-zA-Z0-9_.-]\+\)\.should\s*==\s*/expect(\1).to eq /gc
 command RspecShouldNot %s/\([a-zA-Z0-9_.-]\+\)\.should_not\s*==\s*/expect(\1).to_not eq /gc
-
 command NgHoist %s/^\(\s*\)\$scope\.\(\S*\)\s*=\s*function(\(.*\))\s*{$/\1$scope.\2 = \2;\r\1function \2(\3) {/gc
