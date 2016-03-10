@@ -15,6 +15,7 @@ Plugin 'VundleVim/Vundle.vim'
 " plugin on GitHub repo
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'pangloss/vim-javascript'
+Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
 Plugin 'rust-lang/rust.vim'
 Plugin 'kien/ctrlp.vim'
