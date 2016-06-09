@@ -14,11 +14,17 @@ Plugin 'VundleVim/Vundle.vim'
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
 Plugin 'vim-ruby/vim-ruby'
+Plugin 'scrooloose/syntastic'
 Plugin 'pangloss/vim-javascript'
 Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
 Plugin 'rust-lang/rust.vim'
 Plugin 'kien/ctrlp.vim'
+Plugin 'bbatsov/rubocop'
+Plugin 'ngmy/vim-rubocop'
+Plugin 'slim-template/vim-slim'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'tpope/vim-haml'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -128,6 +134,13 @@ set wildignore+=tmp/**
 set wildignore+=*.png,*.jpg,*.gif
 
 "
+" ================ windox sizing ====================
+set winheight=30
+set winminheight=5
+nnoremap <silent> + :exe "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> - :exe "resize " . (winheight(0) * 2/3)<CR>
+
+"
 " ================ Scrolling ========================
 
 set scrolloff=8         "Start scrolling when we're 8 lines away from margins
@@ -149,6 +162,22 @@ nnoremap <c-b> :CtrlPBuffer<return>
 "
 " ================== CTRL P ==================
 let g:ctrlp_clear_cache_on_exit = 0
+
+"
+" ================== Syntastic
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_auto_jump=0
+let g:syntastic_ruby_checkers=['rubocop', 'mri']
+let g:syntastic_ruby_rubocop_quiet_messages = { "level" : [] }
+" Mark syntax errors with :signs
+let g:syntastic_enable_signs=1
 
 "
 " ================== commands ===============
