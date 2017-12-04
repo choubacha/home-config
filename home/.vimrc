@@ -13,18 +13,25 @@ Plugin 'VundleVim/Vundle.vim'
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
-Plugin 'vim-ruby/vim-ruby'
 Plugin 'scrooloose/syntastic'
-Plugin 'pangloss/vim-javascript'
-Plugin 'othree/javascript-libraries-syntax.vim'
-Plugin 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
-Plugin 'rust-lang/rust.vim'
-Plugin 'kien/ctrlp.vim'
+
+Plugin 'vim-ruby/vim-ruby'
 Plugin 'bbatsov/rubocop'
 Plugin 'ngmy/vim-rubocop'
 Plugin 'slim-template/vim-slim'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'tpope/vim-haml'
+
+Plugin 'pangloss/vim-javascript'
+Plugin 'othree/javascript-libraries-syntax.vim'
+
+Plugin 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
+
+Plugin 'rust-lang/rust.vim'
+Plugin 'racer-rust/vim-racer'
+
+Plugin 'kien/ctrlp.vim'
+Plugin 'Chiel92/vim-autoformat'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -150,9 +157,18 @@ set sidescroll=1
 "
 "
 " ================ Highlighting ====================
-highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%81v.\+/
+" highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+" match OverLength /\%81v.\+/
 set hlsearch
+
+"
+"
+" ================= Focus =============================
+augroup BgHighlight
+  autocmd!
+  autocmd WinEnter * set colorcolumn=101
+  autocmd WinLeave * set colorcolumn=0
+augroup END
 
 "
 " ================= Clear search with esc ==============
@@ -176,8 +192,19 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_auto_jump=0
 let g:syntastic_ruby_checkers=['rubocop', 'mri']
 let g:syntastic_ruby_rubocop_quiet_messages = { "level" : [] }
+
 " Mark syntax errors with :signs
 let g:syntastic_enable_signs=1
+
+"
+" ================== rust racer =============
+set hidden
+let g:racer_cmd = "racer"
+let $RUST_SRC_PATH="/usr/local/src/rust/src"
+
+"
+"" ================= Autoformat =============
+noremap <F3> :Autoformat<CR>
 
 "
 " ================== commands ===============
