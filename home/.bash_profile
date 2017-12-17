@@ -59,14 +59,4 @@ dc-test () {
   docker-compose run -e RAILS_ENV=test web "$@"
 }
 
-git-delete-local-branches () {
-  branch=${1:-"master"}
-  git branch --merged $branch | grep -v "\* $branch" | xargs -n 1 git branch -d
-}
-
-git-delete-local-branches-all () {
-  branch=${1:-"master"}
-  git branch $branch | grep -v "\* $branch" | xargs -n 1 git branch -D
-}
-
 export PATH="$HOME/.cargo/bin:$PATH"

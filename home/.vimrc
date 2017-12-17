@@ -32,6 +32,8 @@ Plugin 'racer-rust/vim-racer'
 
 Plugin 'kien/ctrlp.vim'
 Plugin 'Chiel92/vim-autoformat'
+Plugin 'StanAngeloff/php.vim'
+Plugin 'dsawardekar/wordpress.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -113,8 +115,10 @@ set expandtab
 filetype plugin on
 filetype indent on
 
+autocmd FileType php setlocal noexpandtab
+
 " Display tabs and trailing spaces visually
-set list listchars=trail:·
+set list listchars=tab:│\ ,trail:·
 
 set nowrap       "Don't wrap lines
 set linebreak    "Wrap lines at convenient points
