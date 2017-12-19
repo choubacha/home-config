@@ -13,6 +13,9 @@ export PATH=$PATH:$HOME/.cargo/bin
 # Setup NPM from .npmrc
 export NPM_TOKEN=$(head -n 1 ~/.npmrc | sed -e 's|^//registry.npmjs.org/:_authToken=\(.*\)|\1|')
 
+# Set up some defaults for editor
+export EDITOR=vim
+
 complete -C aws_completer aws
 
 # ALIASES
