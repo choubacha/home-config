@@ -7,8 +7,8 @@ require 'fileutils'
 #      directory so that it recreates it.
 
 COPY_TO_MAPPING = {
-  '.vimrc' => '~/.vimrc',
-  '.bash_profile' => '~/.bash_profile'
+  '.vimrc' => "#{Dir.home}/.vimrc",
+  '.bash_profile' => "#{Dir.home}/.bash_profile"
 }.freeze
 
 def copy(from, to)
@@ -27,10 +27,11 @@ if ARGV[0].to_s.casecmp('extract') == 0
   end
 else
   puts 'Deploying files to system'
-  Dir[File.join(root, 'home', '*')].each do |file|
-    next unless File.file?(file)
-    dest = COPY_TO_MAPPING[file]
-    next unless dest
-    #copy(file, dest)
+  COPY_TO_MAPPING.each do |from, to|
+    to = COPY_TO_MAPPING[from]
+    from = File.join(root, 'home', from)
+    next unless File.file?(from)
+    next unless to
+    copy(from, to)
   end
 end
