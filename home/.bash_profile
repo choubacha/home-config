@@ -10,8 +10,15 @@ export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
 export PATH=$PATH:$HOME/bin
 export PATH=$PATH:$HOME/.cargo/bin
 
-# Setup NPM from .npmrc
-export NPM_TOKEN=$(head -n 1 ~/.npmrc | sed -e 's|^//registry.npmjs.org/:_authToken=\(.*\)|\1|')
+if [ -f ~/.npmrc ]; then
+  # Setup NPM from .npmrc
+  export NPM_TOKEN=$(head -n 1 ~/.npmrc | sed -e 's|^//registry.npmjs.org/:_authToken=\(.*\)|\1|')
+fi
+
+if command -v nvm >/dev/null 2>&1; then
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
+fi
 
 # Set up some defaults for editor
 export EDITOR=vim
@@ -46,9 +53,6 @@ __prompt_command() {
 
   PS1+="\n$ "
 }
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
 
 cp-from-docker () {
   docker-compose run web cat $1 > $1
