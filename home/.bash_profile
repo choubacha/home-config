@@ -10,11 +10,18 @@ export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
 export PATH=$PATH:$HOME/bin
 export PATH=$PATH:$HOME/.cargo/bin
 
+# Setup tty for GPG
+export GPG_TTY=$(tty)
+
 # Setup NPM from .npmrc
 export NPM_TOKEN=$(head -n 1 ~/.npmrc | sed -e 's|^//registry.npmjs.org/:_authToken=\(.*\)|\1|')
 
 # Set up some defaults for editor
 export EDITOR=vim
+
+# Set up bash history
+export HISTSIZE=5000
+export HISTFILESIZE=100000
 
 complete -C aws_completer aws
 
@@ -63,3 +70,8 @@ dc-test () {
 }
 
 export PATH="$HOME/.cargo/bin:$PATH"
+
+# Setting PATH for Python 3.6
+# The original version is saved in .bash_profile.pysave
+PATH="/Library/Frameworks/Python.framework/Versions/3.6/bin:${PATH}"
+export PATH
