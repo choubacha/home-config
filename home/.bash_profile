@@ -1,8 +1,20 @@
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
+if [ -x "$(command -v rbenv)" ];
+then
+  eval "$(rbenv init -)"
+fi
+
 if [ -f $HOME/.bashrc ]
 then
   . $HOME/.bashrc
 fi
+
+if [ -f $HOME/.git-completion.bash ];
+then
+  source $HOME/.git-completion.bash
+fi
+
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
   . $(brew --prefix)/etc/bash_completion
 fi
@@ -14,14 +26,12 @@ export PATH=$PATH:$HOME/.cargo/bin
 export GPG_TTY=$(tty)
 
 # Setup NPM from .npmrc
-export NPM_TOKEN=$(head -n 1 ~/.npmrc | sed -e 's|^//registry.npmjs.org/:_authToken=\(.*\)|\1|')
-
 if [ -f ~/.npmrc ]; then
   # Setup NPM from .npmrc
   export NPM_TOKEN=$(head -n 1 ~/.npmrc | sed -e 's|^//registry.npmjs.org/:_authToken=\(.*\)|\1|')
 fi
 
-if command -v nvm >/dev/null 2>&1; then
+if [ -d ~/.nvm ]; then
   export NVM_DIR="$HOME/.nvm"
   [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
 fi
@@ -36,7 +46,6 @@ export HISTFILESIZE=100000
 complete -C aws_completer aws
 
 # ALIASES
-alias dockerclear='docker rm $(docker ps -aq --filter="status=exited"); docker rmi $(docker images -q --filter="dangling=true")'
 alias gg='git fetch origin && git log --graph --full-history --all --color  --remotes=origin --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s"'
 
 PROMPT_COMMAND=__prompt_command # Func to gen PS1 after CMDs
@@ -64,21 +73,9 @@ __prompt_command() {
   PS1+="\n$ "
 }
 
-cp-from-docker () {
-  docker-compose run web cat $1 > $1
-}
-
-dc-web () {
-  docker-compose run web "$@"
-}
-
-dc-test () {
-  docker-compose run -e RAILS_ENV=test web "$@"
-}
-
 export PATH="$HOME/.cargo/bin:$PATH"
 
 # Setting PATH for Python 3.6
 # The original version is saved in .bash_profile.pysave
-PATH="/Library/Frameworks/Python.framework/Versions/3.6/bin:${PATH}"
-export PATH
+export PATH="/Library/Frameworks/Python.framework/Versions/3.6/bin:${PATH}"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

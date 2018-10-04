@@ -6,32 +6,45 @@ require 'fileutils'
 # TODO Prompt to copy each of the home directory files into the users home
 #      directory so that it recreates it.
 
-COPY_TO_MAPPING = {
-  '.vimrc' => "#{Dir.home}/.vimrc",
-  '.bash_profile' => "#{Dir.home}/.bash_profile"
-}.freeze
+ROOT = __dir__
+
+BLACKLIST = %w(. ..).freeze
+
+FILES = Dir.entries(File.join(ROOT, 'home'))
+  .map { |f| File.basename(f) }
+  .reject { |f| BLACKLIST.include?(f) }
 
 def copy(from, to)
   puts "Copying file #{from} to #{to}"
   FileUtils.copy(from, to)
 end
 
-root = __dir__
-if ARGV[0].to_s.casecmp('extract') == 0
+def host(file)
+  File.join(Dir.home, file)
+end
+
+def repo(file)
+  File.join(ROOT, 'home', file)
+end
+
+cmd = ARGV[0].to_s
+if cmd.casecmp('extract') == 0
   puts 'Extracting files from system'
-  COPY_TO_MAPPING.each do |to, from|
-    from = File.expand_path(from)
+  FILES.each do |file|
+    from = host(file)
     next unless File.file?(from)
-    to = File.join(root, 'home', to)
+    to = repo(file)
     copy(from, to)
   end
-else
+elsif cmd.casecmp('deploy') == 0
   puts 'Deploying files to system'
-  COPY_TO_MAPPING.each do |from, to|
-    to = COPY_TO_MAPPING[from]
-    from = File.join(root, 'home', from)
+  FILES.each do |file|
+    to = host(file)
+    from = repo(file)
     next unless File.file?(from)
     next unless to
     copy(from, to)
   end
+else
+  puts "Please specify whether you you'd like to 'extract' or 'deploy'"
 end
