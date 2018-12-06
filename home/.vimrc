@@ -18,9 +18,14 @@ Plugin 'scrooloose/syntastic'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'bbatsov/rubocop'
 Plugin 'ngmy/vim-rubocop'
+Plugin 'tpope/vim-rails'
 Plugin 'slim-template/vim-slim'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'tpope/vim-haml'
+
+" YAML handling
+Plugin 'stephpy/vim-yaml'
+Plugin 'pedrohdz/vim-yaml-folds'
 
 Plugin 'pangloss/vim-javascript'
 Plugin 'othree/javascript-libraries-syntax.vim'
@@ -126,9 +131,12 @@ set linebreak    "Wrap lines at convenient points
 
 " ================ Folds ============================
 
-set foldmethod=indent   "fold based on indent
-set foldnestmax=3       "deepest fold is 3 levels
-set nofoldenable        "dont fold by default
+set foldmethod=syntax   " fold based on syntax
+" set foldnestmax=3       " deepest fold is 3 levels
+set foldlevel=100       " Start with open folds
+" set nofoldenable        "dont fold by default
+highlight Folded guibg=grey guifg=blue
+highlight FoldColumn guibg=darkgrey guifg=white
 
 " ================ Completion =======================
 
