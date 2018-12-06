@@ -5,11 +5,6 @@ then
   eval "$(rbenv init -)"
 fi
 
-if [ -f $HOME/.bashrc ]
-then
-  . $HOME/.bashrc
-fi
-
 if [ -f $HOME/.git-completion.bash ];
 then
   source $HOME/.git-completion.bash
@@ -40,8 +35,12 @@ fi
 export EDITOR=vim
 
 # Set up bash history
-export HISTSIZE=5000
-export HISTFILESIZE=100000
+shopt -s histappend
+shopt -s cmdhist
+export HISTSIZE=1000000
+export HISTFILESIZE=1000000
+export HISTCONTROL=ignoreboth
+export HISTIGNORE='ls:bg:fg:history'
 
 complete -C aws_completer aws
 
@@ -51,6 +50,10 @@ alias gg='git fetch origin && git log --graph --full-history --all --color  --re
 PROMPT_COMMAND=__prompt_command # Func to gen PS1 after CMDs
 
 __prompt_command() {
+
+  # Flush the current history
+  history -a
+
   local EXIT="$?"             # This needs to be first
 
   local RCol='\[\e[0m\]'
@@ -79,3 +82,8 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # The original version is saved in .bash_profile.pysave
 export PATH="/Library/Frameworks/Python.framework/Versions/3.6/bin:${PATH}"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+if [ -f $HOME/.bashrc ]
+then
+  . $HOME/.bashrc
+fi
