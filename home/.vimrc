@@ -15,31 +15,39 @@ Plugin 'VundleVim/Vundle.vim'
 " plugin on GitHub repo
 Plugin 'scrooloose/syntastic'
 
+" Ruby
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'bbatsov/rubocop'
 Plugin 'ngmy/vim-rubocop'
 Plugin 'tpope/vim-rails'
-Plugin 'slim-template/vim-slim'
-Plugin 'kchmck/vim-coffee-script'
+
+" Rspec
+Plugin 'rlue/vim-fold-rspec'
+Plugin 'keith/rspec.vim'
+
+" HTML syntax
 Plugin 'tpope/vim-haml'
+Plugin 'slim-template/vim-slim'
 
 " YAML handling
 Plugin 'stephpy/vim-yaml'
 Plugin 'pedrohdz/vim-yaml-folds'
 
+" Javascript
 Plugin 'pangloss/vim-javascript'
 Plugin 'othree/javascript-libraries-syntax.vim'
+Plugin 'kchmck/vim-coffee-script'
 
 Plugin 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
 
 Plugin 'rust-lang/rust.vim'
 Plugin 'racer-rust/vim-racer'
 
-Plugin 'kien/ctrlp.vim'
-Plugin 'Chiel92/vim-autoformat'
 Plugin 'StanAngeloff/php.vim'
 Plugin 'dsawardekar/wordpress.vim'
 Plugin 'leafgarland/typescript-vim'
+
+Plugin 'konfekt/fastfold'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -132,9 +140,7 @@ set linebreak    "Wrap lines at convenient points
 " ================ Folds ============================
 
 set foldmethod=syntax   " fold based on syntax
-" set foldnestmax=3       " deepest fold is 3 levels
 set foldlevel=100       " Start with open folds
-" set nofoldenable        "dont fold by default
 highlight Folded guibg=grey guifg=blue
 highlight FoldColumn guibg=darkgrey guifg=white
 
@@ -163,7 +169,7 @@ nnoremap <silent> - :exe "resize " . (winheight(0) * 2/3)<CR>
 "
 " ================ Scrolling ========================
 
-set scrolloff=8         "Start scrolling when we're 8 lines away from margins
+set scrolloff=4         "Start scrolling when we're 8 lines away from margins
 set sidescrolloff=15
 set sidescroll=1
 
@@ -182,6 +188,7 @@ augroup BgHighlight
   autocmd WinEnter * set colorcolumn=101
   autocmd WinLeave * set colorcolumn=0
 augroup END
+set colorcolumn=101
 
 "
 " ================= Clear search with esc ==============
@@ -189,11 +196,7 @@ nnoremap <silent> <esc><esc> :nohl<return><esc>
 nnoremap <c-b> :CtrlPBuffer<return>
 
 "
-" ================== CTRL P ==================
-let g:ctrlp_clear_cache_on_exit = 0
-
-"
-" ================== Syntastic
+" ================== Syntastic =========================
 " set statusline+=%#warningmsg#
 " set statusline+=%{SyntasticStatuslineFlag()}
 " set statusline+=%*
@@ -216,12 +219,12 @@ let g:racer_cmd = "racer"
 let $RUST_SRC_PATH="/usr/local/src/rust/src"
 
 "
-"" ================= Autoformat =============
-noremap <F3> :Autoformat<CR>
-
-"
 " ================== commands ===============
 command RubyHashFix %s/:\([a-zA-Z0-9_]\+\)\s*=>\s*/\1: /gc
 command RspecShould %s/\([a-zA-Z0-9_.-]\+\)\.should\s*==\s*/expect(\1).to eq /gc
 command RspecShouldNot %s/\([a-zA-Z0-9_.-]\+\)\.should_not\s*==\s*/expect(\1).to_not eq /gc
 command NgHoist %s/^\(\s*\)\$scope\.\(\S*\)\s*=\s*function(\(.*\))\s*{$/\1$scope.\2 = \2;\r\1function \2(\3) {/gc
+
+"
+" ================== Clipboard ==============
+set clipboard=unnamed
