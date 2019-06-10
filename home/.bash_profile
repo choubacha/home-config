@@ -47,14 +47,16 @@ complete -C aws_completer aws
 # ALIASES
 alias gg='git fetch origin && git log --graph --full-history --all --color  --remotes=origin --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s"'
 
+# Aliasing vim because of brew installation
+alias vim='/usr/local/bin/vim'
+
 PROMPT_COMMAND=__prompt_command # Func to gen PS1 after CMDs
 
 __prompt_command() {
+  local EXIT="$?"             # This needs to be first
 
   # Flush the current history
   history -a
-
-  local EXIT="$?"             # This needs to be first
 
   local RCol='\[\e[0m\]'
 
@@ -67,10 +69,10 @@ __prompt_command() {
   PS1=""
   PS1+="\[\033[1;32m\]\u\[\033[0;37m\]@\[\033[1;34m\]\h:\W\[\033[0;37m\] => "
 
-  if [ $EXIT != 0 ]; then
+  if [ $EXIT -ne 0 ]; then
     PS1+="${Red}$EXIT${RCol}"      # Add red if exit code non 0
   else
-    PS1+="${Gre}0${RCol}"
+    PS1+="${Gre}$EXIT${RCol}"
   fi
 
   PS1+="\n$ "
