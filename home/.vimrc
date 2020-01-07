@@ -10,16 +10,16 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
+" ALE is an asynchronous linter.
+Plugin 'dense-analysis/ale'
+
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
-Plugin 'scrooloose/syntastic'
-Plugin 'Chiel92/vim-autoformat'
 Plugin 'editorconfig/editorconfig-vim'
 
 " Ruby
 Plugin 'vim-ruby/vim-ruby'
-Plugin 'bbatsov/rubocop'
 Plugin 'tpope/vim-rails'
 Plugin 'noprompt/vim-yardoc'
 
@@ -43,7 +43,6 @@ Plugin 'kchmck/vim-coffee-script'
 Plugin 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
 
 Plugin 'rust-lang/rust.vim'
-Plugin 'racer-rust/vim-racer'
 
 Plugin 'StanAngeloff/php.vim'
 Plugin 'dsawardekar/wordpress.vim'
@@ -198,26 +197,14 @@ nnoremap <silent> <esc><esc> :nohl<return><esc>
 nnoremap <c-b> :CtrlPBuffer<return>
 
 "
-" ================== Syntastic =========================
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-let g:syntastic_auto_jump=0
-let g:syntastic_ruby_checkers=['rubocop', 'mri']
-let g:syntastic_ruby_rubocop_exe = 'bundle exec rubocop'
-let g:syntastic_ruby_rubocop_quiet_messages = { "level" : [] }
-let g:syntastic_enable_signs=1
-
-"
-" ================== rust racer =============
-set hidden
-let g:racer_cmd = "racer"
-let $RUST_SRC_PATH="/usr/local/src/rust/src"
+" ================== ALE ====================
+let g:ale_fixers = {
+      \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+      \ 'ruby': ['rubocop'],
+      \}
+" Setting to bundle will have it use bundle
+let g:ale_ruby_rubocop_executable = 'bundle'
+let g:ale_fix_on_save = 1
 
 "
 " ================== commands ===============
