@@ -14,12 +14,14 @@ Plugin 'VundleVim/Vundle.vim'
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
 Plugin 'scrooloose/syntastic'
+Plugin 'Chiel92/vim-autoformat'
+Plugin 'editorconfig/editorconfig-vim'
 
 " Ruby
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'bbatsov/rubocop'
-Plugin 'ngmy/vim-rubocop'
 Plugin 'tpope/vim-rails'
+Plugin 'noprompt/vim-yardoc'
 
 " Rspec
 Plugin 'rlue/vim-fold-rspec'
@@ -207,9 +209,8 @@ let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 let g:syntastic_auto_jump=0
 let g:syntastic_ruby_checkers=['rubocop', 'mri']
+let g:syntastic_ruby_rubocop_exe = 'bundle exec rubocop'
 let g:syntastic_ruby_rubocop_quiet_messages = { "level" : [] }
-
-" Mark syntax errors with :signs
 let g:syntastic_enable_signs=1
 
 "

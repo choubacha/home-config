@@ -1,5 +1,7 @@
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
 if [ -x "$(command -v rbenv)" ];
 then
   eval "$(rbenv init -)"
@@ -79,6 +81,9 @@ __prompt_command() {
 }
 
 export PATH="$HOME/.cargo/bin:$PATH"
+
+# Setup the .envrc reading
+eval "$(direnv hook bash)"
 
 # Setting PATH for Python 3.6
 # The original version is saved in .bash_profile.pysave
