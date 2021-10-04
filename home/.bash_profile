@@ -18,6 +18,8 @@ fi
 export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
 export PATH=$PATH:$HOME/bin
 export PATH=$PATH:$HOME/.cargo/bin
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$PATH:$HOME/.local/bin"
 
 # Setup tty for GPG
 export GPG_TTY=$(tty)
@@ -48,6 +50,8 @@ complete -C aws_completer aws
 
 # ALIASES
 alias gg='git fetch origin && git log --graph --full-history --all --color  --remotes=origin --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s"'
+alias git-vim='vim -O $(echo $(git ls-files -m))'
+alias git-rspec='rspec $(git ls-files -m | grep spec | tr "\n" " ")'
 
 # Aliasing vim because of brew installation
 alias vim='/usr/local/bin/vim'
@@ -80,14 +84,9 @@ __prompt_command() {
   PS1+="\n$ "
 }
 
-export PATH="$HOME/.cargo/bin:$PATH"
-
 # Setup the .envrc reading
 eval "$(direnv hook bash)"
 
-# Setting PATH for Python 3.6
-# The original version is saved in .bash_profile.pysave
-export PATH="/Library/Frameworks/Python.framework/Versions/3.6/bin:${PATH}"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 if [ -f $HOME/.bashrc ]

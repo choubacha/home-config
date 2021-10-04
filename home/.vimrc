@@ -18,14 +18,18 @@ Plugin 'dense-analysis/ale'
 " plugin on GitHub repo
 Plugin 'editorconfig/editorconfig-vim'
 
+" Plugin 'ycm-core/YouCompleteMe'
+
 " Ruby
 Plugin 'vim-ruby/vim-ruby'
-Plugin 'tpope/vim-rails'
+" Plugin 'tpope/vim-rails'
 Plugin 'noprompt/vim-yardoc'
 
 " Rspec
 Plugin 'rlue/vim-fold-rspec'
 Plugin 'keith/rspec.vim'
+
+Plugin 'vim-test/vim-test'
 
 " HTML syntax
 Plugin 'tpope/vim-haml'
@@ -34,6 +38,7 @@ Plugin 'slim-template/vim-slim'
 " YAML handling
 Plugin 'stephpy/vim-yaml'
 Plugin 'pedrohdz/vim-yaml-folds'
+Plugin 'glench/vim-jinja2-syntax'
 
 " Javascript
 Plugin 'pangloss/vim-javascript'
@@ -48,7 +53,8 @@ Plugin 'StanAngeloff/php.vim'
 Plugin 'dsawardekar/wordpress.vim'
 Plugin 'leafgarland/typescript-vim'
 
-Plugin 'konfekt/fastfold'
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -99,7 +105,7 @@ syntax on
 
 " Change leader to a comma because the backslash is too far away
 " That means all \x commands turn into ,x
-" The mapleader has to be set before vundle starts loading all 
+" The mapleader has to be set before vundle starts loading all
 " the plugins.
 let mapleader=","
 
@@ -202,10 +208,40 @@ let g:ale_fixers = {
       \ '*': ['remove_trailing_lines', 'trim_whitespace'],
       \ 'ruby': ['rubocop'],
       \}
+
+let g:ale_linters = {
+      \ 'ruby': ['sorbet', 'rubocop'],
+      \}
 " Setting to bundle will have it use bundle
 let g:ale_ruby_rubocop_executable = 'bundle'
+
+let g:ale_ruby_sorbet_executable = 'bundle'
+
+let g:ale_ruby_rubocop_auto_correct_all = 1
+
+let g:ale_lsp_show_message_severity = 'information'
+
+let g:ale_rust_cargo_check_tests = 1
+let g:ale_rust_cargo_use_clippy = 1
+let g:ale_rust_rls_config = {
+      \ 'rust' : {
+      \   'clippy_preference': 'on'
+      \  }
+      \}
 let g:ale_fix_on_save = 1
 
+" Turns on rust formating without ale
+let g:rustfmt_autosave = 1
+
+" These commands are useful if you don't want to autoformat a file on save
+" but cannot remember the variable.
+command ALEDisableAutofixCustom let b:ale_fix_on_save = 0
+command ALEEnableAutofixCustom let b:ale_fix_on_save = 1
+
+" When there is an error, the highlight is linked to the SpellBad highlight
+" group. So this changes it to an underline without a background.
+hi SpellBad cterm=underline ctermbg=white
+hi SpellCap cterm=underline ctermbg=white
 "
 " ================== commands ===============
 command RubyHashFix %s/:\([a-zA-Z0-9_]\+\)\s*=>\s*/\1: /gc
@@ -216,3 +252,19 @@ command NgHoist %s/^\(\s*\)\$scope\.\(\S*\)\s*=\s*function(\(.*\))\s*{$/\1$scope
 "
 " ================== Clipboard ==============
 set clipboard=unnamed
+
+"
+" =================== Status =================
+set laststatus=2 " always show.
+
+"
+" =================== Spell ==================
+
+set spell spelllang=en_us
+
+"
+" =================== Markdown ===============
+augroup Markdown
+  autocmd!
+  autocmd FileType markdown set wrap
+augroup END
