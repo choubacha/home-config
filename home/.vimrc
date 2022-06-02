@@ -2,62 +2,59 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin('~/.vim/plugged')
 " alternatively, pass a path where Vundle should install plugins
 " call vundle#begin('~/some/path/here')
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-
 " ALE is an asynchronous linter.
-Plugin 'dense-analysis/ale'
+Plug 'dense-analysis/ale'
 
 " The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
+" Keep Plug commands between vundle#begin/end.
 " plugin on GitHub repo
-Plugin 'editorconfig/editorconfig-vim'
+Plug 'editorconfig/editorconfig-vim'
 
-" Plugin 'ycm-core/YouCompleteMe'
+" Plug 'ycm-core/YouCompleteMe'
 
 " Ruby
-Plugin 'vim-ruby/vim-ruby'
-" Plugin 'tpope/vim-rails'
-Plugin 'noprompt/vim-yardoc'
+Plug 'vim-ruby/vim-ruby'
+" Plug 'tpope/vim-rails'
+Plug 'noprompt/vim-yardoc'
 
 " Rspec
-Plugin 'rlue/vim-fold-rspec'
-Plugin 'keith/rspec.vim'
+Plug 'rlue/vim-fold-rspec'
+Plug 'keith/rspec.vim'
 
-Plugin 'vim-test/vim-test'
+Plug 'vim-test/vim-test'
 
 " HTML syntax
-Plugin 'tpope/vim-haml'
-Plugin 'slim-template/vim-slim'
+Plug 'tpope/vim-haml'
+Plug 'slim-template/vim-slim'
 
 " YAML handling
-Plugin 'stephpy/vim-yaml'
-Plugin 'pedrohdz/vim-yaml-folds'
-Plugin 'glench/vim-jinja2-syntax'
+Plug 'stephpy/vim-yaml'
+Plug 'pedrohdz/vim-yaml-folds'
+Plug 'glench/vim-jinja2-syntax'
 
 " Javascript
-Plugin 'pangloss/vim-javascript'
-Plugin 'othree/javascript-libraries-syntax.vim'
-Plugin 'kchmck/vim-coffee-script'
+Plug 'pangloss/vim-javascript'
+Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'kchmck/vim-coffee-script'
 
-Plugin 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
+Plug 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
 
-Plugin 'rust-lang/rust.vim'
+Plug 'rust-lang/rust.vim'
 
-Plugin 'StanAngeloff/php.vim'
-Plugin 'dsawardekar/wordpress.vim'
-Plugin 'leafgarland/typescript-vim'
+Plug 'StanAngeloff/php.vim'
+Plug 'dsawardekar/wordpress.vim'
+Plug 'leafgarland/typescript-vim'
 
-Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
 
 " All of your Plugins must be added before the following line
-call vundle#end()            " required
+call plug#end() " required
+
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
@@ -183,8 +180,8 @@ set sidescroll=1
 "
 "
 " ================ Highlighting ====================
-" highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-" match OverLength /\%81v.\+/
+highlight OverLength cterm=underline
+match OverLength /\%101v.\+/
 set hlsearch
 
 "
@@ -230,7 +227,7 @@ let g:ale_rust_rls_config = {
       \}
 let g:ale_fix_on_save = 1
 
-" Turns on rust formating without ale
+" Turns on rust formatting without ale
 let g:rustfmt_autosave = 1
 
 " These commands are useful if you don't want to autoformat a file on save
@@ -240,8 +237,10 @@ command ALEEnableAutofixCustom let b:ale_fix_on_save = 1
 
 " When there is an error, the highlight is linked to the SpellBad highlight
 " group. So this changes it to an underline without a background.
-hi SpellBad cterm=underline ctermbg=white
-hi SpellCap cterm=underline ctermbg=white
+highlight SpellBad cterm=underline ctermbg=NONE ctermul=Red
+highlight SpellCap cterm=underline ctermbg=NONE ctermul=Red
+highlight SpellRare cterm=underline ctermbg=NONE ctermul=Red
+highlight SpellLocal cterm=underline ctermbg=NONE ctermul=Red
 "
 " ================== commands ===============
 command RubyHashFix %s/:\([a-zA-Z0-9_]\+\)\s*=>\s*/\1: /gc
@@ -267,4 +266,5 @@ set spell spelllang=en_us
 augroup Markdown
   autocmd!
   autocmd FileType markdown set wrap
+  autocmd FileType markdown set textwidth=100
 augroup END
