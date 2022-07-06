@@ -46,5 +46,5 @@ elsif cmd.casecmp('deploy') == 0
     copy(from, to)
   end
 else
-  puts "Please specify whether you you'd like to 'extract' or 'deploy'"
+  puts "Please specify whether you you'd like to 'extract' from or 'deploy' to the system"
 end

@@ -27,6 +27,9 @@ Plug 'keith/rspec.vim'
 
 Plug 'vim-test/vim-test'
 
+" Go Lang
+Plug 'fatih/vim-go'
+
 " HTML syntax
 Plug 'tpope/vim-haml'
 Plug 'slim-template/vim-slim'

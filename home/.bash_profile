@@ -7,7 +7,6 @@ fi
 
 export PATH=/opt/homebrew/bin:$PATH
 export PATH=$PATH:$HOME/.cargo/bin
-export PATH="$HOME/.cargo/bin:$PATH"
 
 if [ -x "$(command -v rbenv)" ];
 then
@@ -29,6 +28,8 @@ else
   echo "No github token found in ~/.github_token"
 fi
 
+export BASH_COMPLETION_COMPAT_DIR="$(brew --prefix)/etc/bash_completion.d"
+
 if [ -f $HOME/.git-completion.bash ];
 then
   source $HOME/.git-completion.bash
@@ -37,6 +38,8 @@ fi
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
   . $(brew --prefix)/etc/bash_completion
 fi
+
+[[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
 
 # Setup tty for GPG
 export GPG_TTY=$(tty)
@@ -112,3 +115,7 @@ then
 fi
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+. "$HOME/.cargo/env"
+
+echo "setting tabs to -4"
+tabs -4
